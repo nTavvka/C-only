@@ -1,59 +1,65 @@
-﻿
-#include <iostream>
+
 #include <iomanip>
 #include <algorithm>
-#include <vector>
+#include <stdio.h>
 
 using namespace std;
 
-int Get_size(int rezult);
-void show(int a, int b);
+int Get_indent(int rezult);
+void show(int a, int b, int indent);
 
 int main()
 {
-	long int a, b;
-	cin >> a >> b;
-	system("cls");
+  int numA, numB;
+  scanf_s("%u", &numA);
+  scanf_s("%u", &numB);
 
-	show(a, b);
+  system("cls");
+  
+  if (numA < numB)
+  {
+	  numA = numA ^ numB;
+	  numB = numA ^ numB;
+	  numA = numA ^ numB;
+  }
 
+  int indent;
+
+  indent = Get_indent(numA * numB);
+  show(numA, numB, indent);
+  printf("\n%*u ", indent, numA * numB);
 	return 0;
 }
 
-int Get_size(int rezult)
+int Get_indent(int rezult)
 {
-	int size = 1;
+	int indent = 1;
 	do
 	{
-		size++;
+		indent++;
 		rezult /= 10;
 	} while (rezult);
-	return size;
+	return indent;
 }
 
-void show(int a, int b)
-{
-	int size = Get_size(a*b) ;
-	if (b > a) swap(a, b);
-	int rezult = a * b;
 
-	cout << setw(size) << right << a << endl << 'x' << endl << setw(size) << right << b << endl;
-	cout << setfill('-') << setw(size) << '-' << endl;
-	cout.fill(' ');
-	
-	if (b / 10)
+void show(int numA, int numB, int indent)
+{
+	printf("%*u", indent, numA);
+	printf("\nx");
+	printf("\n%*u ", indent, numB);
+	printf("\n ---------");
+
+	int i = 1;
+	if (numB / 10)
 	{
-		int i = 0;
-		cout.setf(ios::showpos);
 		do
 		{
-			if (b / 10 == 0) cout.unsetf(ios::showpos);
-			cout << setw(size - i) << a * (b % 10) << endl;
-			b /= 10;
+			if (numB / 10 == 0) printf("\n%*u", indent - i, numA* (numB % 10));
+			else printf("\n+%*u", indent - i, numA * (numB % 10));
+			numB /= 10;
 			i++;
-		} while (b);
-		cout << setfill('-') << setw(size) << '-' << endl;
+		} while (numB);
+		printf("\n ---------");
 	}
-	cout.fill(' ');
-	cout << setw(size) << right << rezult << endl;
 }
