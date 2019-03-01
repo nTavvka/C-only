@@ -1,7 +1,5 @@
-#include <iomanip>
-#include <stdio.h>
 
-using namespace std;
+#include <stdio.h>
 
 int Get_indent(int rezult);
 void show(int a, int b, int indent);
@@ -13,8 +11,6 @@ int main()
 	scanf_s("%u", &numA);
 	printf("input numB: ");
 	scanf_s("%u", &numB);
-
-	system("cls");
 
 	int indent = Get_indent(numA * numB);
 	
@@ -37,7 +33,7 @@ int Get_indent(int rezult)                 //Функция для посчет�
 
 void show(int numA, int numB, int indent)
 {
-	printf("%*u", indent, numA);
+	printf("\n%*u", indent, numA);
 	printf("\nx");
 	printf("\n%*u ", indent, numB);
 	printf("\n ---------");
