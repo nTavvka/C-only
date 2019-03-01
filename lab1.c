@@ -1,4 +1,4 @@
-
+// вариант 18
 #include <stdio.h>
 
 int Get_indent(int rezult);
